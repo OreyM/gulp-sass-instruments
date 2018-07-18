@@ -79,3 +79,18 @@ gulp.task('server-task', function () {
 });
 
 gulp.task('default', ['sass-task', 'scripts-task', 'server-task']);
+
+gulp.task('build', ['sass-task', 'scripts-task'], function() {
+
+    var buildCss = gulp.src('dev/css/**/*')
+        .pipe(gulp.dest('app/css'))
+
+    // var buildFonts = gulp.src('app/fonts/**/*') // Переносим шрифты в продакшен
+    //     .pipe(gulp.dest('dist/fonts'))
+
+    var buildJs = gulp.src('dev/js/**/*')
+        .pipe(gulp.dest('app/js'))
+
+    var buildHtml = gulp.src('dev/*.html')
+        .pipe(gulp.dest('app'));
+});
