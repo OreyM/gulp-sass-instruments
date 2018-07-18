@@ -11,16 +11,16 @@ var gulp = require('gulp'),
 var config = {
 
     inputPath: {
-        sass:   './develop/sass/**/*.sass',
-        html:   './public/index.html',
-        js:     './develop/js/**/*.js'
+        sass:   './dev/sass/**/*.sass',
+        html:   './app/**/*.html',
+        js:     './dev/js/**/*.js'
     },
 
     outputPath: {
         cssName:    'main.css',
-        cssPath:    './public/css',
+        cssPath:    './app/css',
         jsName:     'common.js',
-        jsPath:     './public/js'
+        jsPath:     './app/js'
     },
 
     autoprefix: {
@@ -64,7 +64,7 @@ gulp.task('server-task', function () {
    browserSync.init({
 
       server: {
-          baseDir: "public/",
+          baseDir: "app/",
           directory: true
       }
    });
