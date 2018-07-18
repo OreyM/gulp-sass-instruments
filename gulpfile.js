@@ -8,13 +8,13 @@ var gulp = require('gulp'),
 
 var config = {
 
-    path: {
+    inputPath: {
         sass:   './develop/sass/**/*.sass',
         html:   './public/index.html',
         js:     './develop/js/**/*.js'
     },
 
-    output: {
+    outputPath: {
         cssName:    'main.min.css',
         cssPath:    './public/css',
         jsName:     'common.min.js',
@@ -27,24 +27,24 @@ var config = {
 }
 
 gulp.task('sass-task', function () {
-    return gulp.src(config.path.sass)
+    return gulp.src(config.inputPath.sass)
         .pipe(sourcemaps.init())
         .pipe(sass())
-        .pipe(concat(config.output.cssName))
+        .pipe(concat(config.outputPath.cssName))
         .pipe(autoprefixer({
             browsers: config.autoprefix.versions,
             cascade: false
         }))
         .pipe(sourcemaps.write())
-        .pipe(gulp.dest(config.output.cssPath))
+        .pipe(gulp.dest(config.outputPath.cssPath))
         .pipe(browserSync.stream());
 });
 
 gulp.task('scripts-task', function() {
-    return gulp.src(config.path.js)
-        .pipe(concat(config.output.jsName))
+    return gulp.src(config.inputPath.js)
+        .pipe(concat(config.outputPath.jsName))
         .pipe(uglify())
-        .pipe(gulp.dest(config.output.jsPath))
+        .pipe(gulp.dest(config.outputPath.jsPath))
         .pipe(browserSync.stream());
 });
 
@@ -62,9 +62,9 @@ gulp.task('server-task', function () {
       }
    });
 
-   gulp.watch(config.path.sass, ['sass-task']);
-   gulp.watch(config.path.js, ['scripts-task']);
-   gulp.watch(config.path.html).on('change', browserSync.reload);
+   gulp.watch(config.inputPath.sass, ['sass-task']);
+   gulp.watch(config.inputPath.js, ['scripts-task']);
+   gulp.watch(config.inputPath.html).on('change', browserSync.reload);
 });
 
 gulp.task('default', ['sass-task', 'scripts-task', 'server-task']);

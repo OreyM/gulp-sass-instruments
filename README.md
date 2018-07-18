@@ -17,4 +17,4 @@ create gulpfile.js
 
 npm i -g gulp   --- global install gulp
 
-npm i --save-dev gulp gulp-sass gulp-autoprefixer gulp-sourcemaps gulp-concat browser-sync
+npm i --save-dev gulp gulp-sass gulp-autoprefixer gulp-sourcemaps gulp-concat browser-sync gulp-uglifyjs
