@@ -6,10 +6,12 @@ var browserSync = require('browser-sync').create();
 var sourcemaps = require('gulp-sourcemaps');
 
 var config = {
+
     path: {
         sass: './develop/sass/**/*.sass',
         html: './public/index.html'
     },
+
     output: {
         cssName: 'main.min.css',
         path: './public/css'
@@ -31,7 +33,9 @@ gulp.task('sass', function () {
 });
 
 gulp.task('server', function () {
+
    browserSync.init({
+
       server: {
           //for the anybody files
           baseDir: "public/",
