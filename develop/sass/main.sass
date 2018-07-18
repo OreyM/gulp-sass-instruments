@@ -1,29 +1,23 @@
 @import "sass-src/functions"
 @import "sass-src/reset-css"
 
-body
-  background-color: #ff151d
-
-.div-test
-  display: flex
-  align-items: center
-  justify-content: center
-  transition: all .5s
-  user-select: none
-  background: linear-gradient(to bottom, #41ffd5, #39ff1b)
-  appearance: none
-  transform: rotateX(360deg)
-  color: #ff4ef2
-  h1
-    font-weight: bold
-    text-decoration: underline
-    font-size: rem(40px)
-  h4
-    font-size: rem(10px)
-    color: #ee2743
-
-.container
+.full-wrapp
+  position: absolute
+  top: 0
+  left: 0
+  right: 0
+  bottom: 0
   display: flex
   justify-content: center
   align-items: center
-  margin: rem(40px) 0
+  width: 100%
+  height: 100%
+  background: #2290ff
+  .text-cont
+    display: flex
+    background-color: #49ff4b
+    padding: 10px
+    border-radius: 15px
+    .text
+      font-family: sans-serif
+      font-size: rem(90px)

@@ -4,7 +4,9 @@ var gulp = require('gulp'),
     sass = require('gulp-sass'),
     browserSync = require('browser-sync').create(),
     sourcemaps = require('gulp-sourcemaps'),
-    uglify      = require('gulp-uglifyjs');
+    uglify      = require('gulp-uglifyjs'),
+    cssnano = require('gulp-cssnano'),
+    fileRename  = require('gulp-rename');
 
 var config = {
 
@@ -15,9 +17,9 @@ var config = {
     },
 
     outputPath: {
-        cssName:    'main.min.css',
+        cssName:    'main.css',
         cssPath:    './public/css',
-        jsName:     'common.min.js',
+        jsName:     'common.js',
         jsPath:     './public/js'
     },
 
@@ -37,13 +39,22 @@ gulp.task('sass-task', function () {
         }))
         .pipe(sourcemaps.write())
         .pipe(gulp.dest(config.outputPath.cssPath))
+        .pipe(cssnano())
+        .pipe(fileRename({
+            suffix: '.min'
+        }))
+        .pipe(gulp.dest(config.outputPath.cssPath))
         .pipe(browserSync.stream());
 });
 
 gulp.task('scripts-task', function() {
     return gulp.src(config.inputPath.js)
         .pipe(concat(config.outputPath.jsName))
+        .pipe(gulp.dest(config.outputPath.jsPath))
         .pipe(uglify())
+        .pipe(fileRename({
+            suffix: '.min'
+        }))
         .pipe(gulp.dest(config.outputPath.jsPath))
         .pipe(browserSync.stream());
 });
@@ -53,12 +64,8 @@ gulp.task('server-task', function () {
    browserSync.init({
 
       server: {
-          //for the anybody files
           baseDir: "public/",
           directory: true
-          // for the current file
-          // baseDir: "public/",
-          // directory: true
       }
    });
 
