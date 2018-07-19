@@ -1,3 +1,5 @@
+// var conf = require('conf.js');
+
 var gulp = require('gulp'),
     autoprefixer = require('gulp-autoprefixer'),
     concat = require('gulp-concat'),
@@ -17,7 +19,10 @@ var config = {
     inputPath: {
         sass:   './dev/sass/**/*.sass',
         html:   './dev/**/*.html',
-        js:     './dev/js-src/**/*.js'
+        js:     [
+            'dev/lib-src/jquery/dist/jquery.js', //jquery
+            'dev/lib-src/owl.carousel/dist/owl.carousel.js',    //owl carousel
+            './dev/js-src/**/*.js']
     },
 
     outputPath: {
@@ -27,9 +32,20 @@ var config = {
         jsPath:     './dev/js'
     },
 
+    buildPath: {
+        cssIn:  'dev/css/**/*',
+        cssOut: 'app/css',
+
+        jsIn:   'dev/js/**/*',
+        jsOut:  'app/js',
+
+        htmlIn: 'dev/*.html',
+        htmlOut: 'app'
+    },
+
     autoprefix: {
         versions: ['last 5 versions']
-    }
+    },
 }
 
 gulp.task('sass-task', function () {
@@ -82,15 +98,15 @@ gulp.task('default', ['sass-task', 'scripts-task', 'server-task']);
 
 gulp.task('build', ['sass-task', 'scripts-task'], function() {
 
-    var buildCss = gulp.src('dev/css/**/*')
-        .pipe(gulp.dest('app/css'))
+    var buildCss = gulp.src(config.buildPath.cssIn)
+        .pipe(gulp.dest(config.buildPath.cssOut))
 
     // var buildFonts = gulp.src('app/fonts/**/*') // Переносим шрифты в продакшен
     //     .pipe(gulp.dest('dist/fonts'))
 
-    var buildJs = gulp.src('dev/js/**/*')
-        .pipe(gulp.dest('app/js'))
+    var buildJs = gulp.src(config.buildPath.jsIn)
+        .pipe(gulp.dest(config.buildPath.jsOut))
 
-    var buildHtml = gulp.src('dev/*.html')
-        .pipe(gulp.dest('app'));
+    var buildHtml = gulp.src(config.buildPath.htmlIn)
+        .pipe(gulp.dest(config.buildPath.htmlOut));
 });
